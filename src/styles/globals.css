@@ -1,0 +1,16 @@
+@tailwind components;
+@tailwind utilities;
+
+
+#mdx-layout img{
+    @apply w-2/3 object-cover object-center flex mx-auto
+}
+
+#mdx-layout p{
+    @apply leading-8 text-xl
+}
+
+a{
+    text-decoration: none;
+    color: inherit;
+}

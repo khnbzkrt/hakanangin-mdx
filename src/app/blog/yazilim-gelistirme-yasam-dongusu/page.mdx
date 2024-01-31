@@ -1,0 +1,50 @@
+# SDLC (Yazılım Geliştirme Yaşam Döngüsü)
+
+Merhaba, bu yazıda SDLC (Software Development Life Cycle) kavramının sahip olduğu süreçleri ve süreçler içerisindeki detayları tecrübelerimle beraber aktarmaya çalışacağım.
+
+![Software Development Life Cycle!](/blog/sdlc.webp "Yazılım Geliştirme Yaşam Döngüsü")
+
+SDLC toplamda 6 adımdan oluşur ve bu 6 adım geliştirdiğimiz yazılımın hizmet süresi boyunca tekrarlanan bir yapıda uygulanmaya devam eder. Gerek yeni feature geliştirmeleri olsun gerek hata düzeltmeleri olsun tüm bu süreçlerde SDLC kavramını doğru şekilde uygulamak, uygulamadan almak istediğimiz çıktının verimliliği ve yönetilebilirliği açısından çok önemli bir yere sahiptir. Çünkü yazılım geliştirme süreci tek başına kod yazmaktan ibaret değildir. Ben bir yazılım geliştiricisinin yukarı tüm süreçlere hakim olması gerektiğini düşünüyorum. SDLC’deki tüm süreçler sırayla yürütülmeli ve eş zamanlı olarak yapılan çalışmalar hatalı kabul edilmelidir.
+
+Gelin beraber bu adımların neleri kapsadığını detaylı bir şekilde incelemeye başlayalım…
+
+## 1. Analiz
+Yazılımlar genelde bir ihtiyacı karşılamak veya bir soruna çözüm üretmek için geliştirilirler. Yazılım geliştirirken doğru çözümlerle doğru sonuçlara ulaşmak istiyorsak problemi/ihtiyacı çok iyi analiz etmemiz ve anlamamız gerekir. Yoksa ürettiğimiz çözüm doğru şekilde implemente edilemez, edilse bile sürekli hatalarla karşılaşılır. Bu sebeple ihtiyacı doğru anlamak ve bu ihtiyaca doğru çözüm üretmek aslında ortaya çıkacak yazılımın tam da kendisidir.
+
+Bir çok yazılım geliştirici kod yazmaktan keyif aldığı için analiz sürecinin bir paydaşı olmak istemez, iş hazır ve çözüme ulaşmış bir şekilde önüne sunulsun ister. Ancak analiz kapsamı sadece ister analizini kapsamaz. Yapılacak geliştirmelerin teknik analiz ihtiyaçları da bu sürece dahil edilmelidir. Ayrıca geliştiricinin doğru bir implementasyon yapabilmesi için yapılacak olan işi çok iyi anlaması gerekmektedir. Bu da ancak analiz ile mümkündür.
+
+## 2. Tasarım
+Tasarım adımı ise analiz adımında netleştirdiğimiz çözümlerin uygulama içerisinde son kullanıcıya nasıl sunulması gerektiğinin, kullanıcı deneyimi de göz önünde bulundurularak netleştirildiği adımdır. Yanlış uygulanmış bir tasarım ve kullanıcı deneyimi, ürününüzün pazarlamasını ve kullanılabilirliğini etkileyen önemli bir adımdır.
+
+![UI/UX!](/blog/ui-ux.webp "UI/UX")
+
+Kullanıcılar yardım ve desteğe ihtiyaç duymadan ürününüzü sorunsuz bir şekilde kullanabilmelidirler. Bazen kullanıcının kafasını karıştırıcı ekran tasarımları yada kullanıcıya verilebilecek tüm hizmetleri tek bir ekrana sığdırmaya çalışmak deneyim açısından olumsuz izlenimler bırakabilir. Bu adımı aslında kendi kullanıcı deneyimlerimizden yola çıkarak değerlendirmek ve yorumlamak çok daha anlaşılır olmasını sağlayacaktır.
+
+## 3. İmplementasyon
+İmplementasyon sürecinde gerçekleşense 1. ve 2. adımdaki süreçlerin tamamlanmasıyla oluşan çıktıların uygulanmasıdır, koda dökülmesidir.
+
+Birçok geliştiricinin bu adımda yaşadığı en yaygın sorun ise analiz ve tasarımın doğru yapılmamış olmasıdır. Bu eksiklikler hızlı bir iletişim ile ekipler arasında çözüme kavuşturulabilse de implementasyon aşamasında bu maliyeti üstlenmek doğru bir yaklaşım değildir ve bazı noktalarda SDLC’yi kısır bir döngüye sokabilir. Bu tür sorunları en aza indirmek için yazılım geliştiricisinin analiz ve tasarım süreçlerinde de aktif rol oynaması önemlidir.
+
+İmplementasyon aşamasında hiçbir eksik veya açık nokta bırakılmamalıdır. Yazılımda “leb demeden leblebiyi anlamak” yoktur. Direkt leblebinin kendisi vardır :)
+
+>  *Hiç anlamamak, anladığını zannetmekten iyidir.*
+
+## 4. Test
+Test adımı ise analizini, tasarımını ve implementasyonunu yaptığımız geliştirmelerin tam da istenilen şekilde çalışıp çalışmadığını kontrol ettiğimiz adımdır.
+
+Test alanı kendi başına apayrı bir dünya ancak burada bilmemiz gereken uygulamamız istenilen verimlilikte, hedeflediğimiz ölçüde performanslı, amaca uygun ve beklenen çıktılarla çalışıyor mu bunu kontrol etmektir. Burada bir taviz yada pazarlık söz konusu değildir.
+
+Bazı geliştiriciler ticketın geri dönmemesi için test ekibiyle pazarlık yapabiliyor :D
+
+## 5. Dağıtım
+Artık SDLC adımlarının sonuna doğru yaklaştık ve yukarıdaki tüm süreçleri başarılı bir şekilde tamamladıktan sonra ürünümüz son kullanıcı ile buluşmaya hazır hale geldi. Yazılım ekibinin “Projeyi canlıya almak” diye tabir ettiği kısım ise tam da burası, dağıtım adımıdır.
+
+Bu adımda, yaptığımız geliştirmeleri kullanıcıya hizmet edecek canlı sistemlere entegre ederiz ve bu sistem Web ortamı için genellikle sunuculardır.
+
+## 6. Bakım
+Dağıtım adımından sonra işimizin bittiğini düşünebilirsiniz ancak bakım adımı burada yer alan süreçlerin en önemlilerinden biridir. Çünkü başlangıçtaki hedeflediğimiz çıktı, geliştirdiğimiz yazılımın kullanıcılara hizmet süresi boyunca aynı şekilde hizmet etmeye devam etmesi gerekmektedir.
+
+Bu noktada gözlemleyebileceğimiz en yaygın durum; sistemdeki kullanıcı sayısı arttıkça, dağıtımı gerçekleştirdiğimiz sunucudaki kaynakların yetersizliğinden dolayı performans sorunları yaşanmasıdır. Bu detayın tespit edilebilmesi için sürekli bakım modunda olmak, çalışan sistemi gözlemlemek ve bu adımdaki ihtiyaçları tespit etmek gerekir. Bunu da kullanıcılar sistemi kullanamaz hale geldiklerinde değil, sunucu kaynaklarını gözlemleyerek öngörebilmek gerekir.
+
+Kapanış :
+Vakit ayırıp yazımı okuduğunuz için teşekkür ederim. Çok fazla teknik detaylara girmeden, fikirlerimi ve tecrübelerimi de katarak SDLC sürecini paylaşmak istedim. Siz de tecrübelerinizi paylaşarak buradaki içeriği zenginleştirmeme katkı sağlayabilirsiniz.
