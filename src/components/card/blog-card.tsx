@@ -14,7 +14,7 @@ const BlogCard: FC<BlogCardProps> = ({ src, title, content, link }) => {
     <Link href={link}>
       <div className="grid grid-cols-[200px,1fr] min-h-[200px] shadow-md rounded-2xl p-4 gap-4">
         <div className="relative">
-          <Image src={src} layout="fill" loading="lazy" alt={title} />
+          <Image src={src} fill loading="lazy" alt={title} />
         </div>
         <div>
           <h1>{title}</h1>

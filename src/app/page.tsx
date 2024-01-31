@@ -9,46 +9,11 @@ const blogData = [
     src: sdlcImage,
     link: "/blog/yazilim-gelistirme-yasam-dongusu",
   },
-  {
-    title: "SDLC (Yazılım Geliştirme Yaşam Döngüsü)",
-    content:
-      "Merhaba, bu yazıda SDLC (Software Development Life Cycle) kavramının sahip olduğu süreçleri ve süreçler içerisindeki detayları tecrübelerimle beraber aktarmaya çalışacağım.",
-    src: sdlcImage,
-    link: "/blog/yazilim-gelistirme-yasam-dongusu",
-  },
-  {
-    title: "SDLC (Yazılım Geliştirme Yaşam Döngüsü)",
-    content:
-      "Merhaba, bu yazıda SDLC (Software Development Life Cycle) kavramının sahip olduğu süreçleri ve süreçler içerisindeki detayları tecrübelerimle beraber aktarmaya çalışacağım.",
-    src: sdlcImage,
-    link: "/blog/yazilim-gelistirme-yasam-dongusu",
-  },
-  {
-    title: "SDLC (Yazılım Geliştirme Yaşam Döngüsü)",
-    content:
-      "Merhaba, bu yazıda SDLC (Software Development Life Cycle) kavramının sahip olduğu süreçleri ve süreçler içerisindeki detayları tecrübelerimle beraber aktarmaya çalışacağım.",
-    src: sdlcImage,
-    link: "/blog/yazilim-gelistirme-yasam-dongusu",
-  },
-  {
-    title: "SDLC (Yazılım Geliştirme Yaşam Döngüsü)",
-    content:
-      "Merhaba, bu yazıda SDLC (Software Development Life Cycle) kavramının sahip olduğu süreçleri ve süreçler içerisindeki detayları tecrübelerimle beraber aktarmaya çalışacağım.",
-    src: sdlcImage,
-    link: "/blog/yazilim-gelistirme-yasam-dongusu",
-  },
-  {
-    title: "SDLC (Yazılım Geliştirme Yaşam Döngüsü)",
-    content:
-      "Merhaba, bu yazıda SDLC (Software Development Life Cycle) kavramının sahip olduğu süreçleri ve süreçler içerisindeki detayları tecrübelerimle beraber aktarmaya çalışacağım.",
-    src: sdlcImage,
-    link: "/blog/yazilim-gelistirme-yasam-dongusu",
-  },
 ];
 
 export default function Home() {
   return (
-    <article className="grid grid-cols-2 gap-4">
+    <article className="grid grid-cols-1 gap-4">
       {blogData.map((blog) => (
         <BlogCard
           key={blog.title}
