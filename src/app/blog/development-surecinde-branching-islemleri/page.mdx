@@ -54,7 +54,7 @@ komutu çalıştırılarak `feature/ABC-123` branchini oluşturmuş olduk. Bu a�
 
 ## Bugfix branch
 
-Ben bu branch genelde 2 şekilde kullanılır.
+Bu branch genelde 2 şekilde kullanılır.
 
 1. Canlıda çalışmayan bir geliştirme tespit edilmiştir ancak düzeltilmesi çok acil olmayan bir sorundur. Örneğin login butonunun boyutu 250px X 40px olması gerekirken 250px x 50px olarak geliştirme yapılmış ve bu durum test ekibinin de gözünden kaçarak canlıya kadar çıkmıştır. Bunun gibi normalde kararlaştırılan şekilde çalışmayan ancak sistemin akışını bozmayan hatalar bugfix olarak gündeme alınarak düzeltilir.
 
@@ -71,3 +71,5 @@ Master/main branchi uygulamamızın canlıdaki versiyon sürümü olarak nitelen
 Development/dev branch üzerinden feature yada bugfix branchler oluşturup geliştirmelerimiz yaparız. Bu branchler code review sürecinden geçtikten sonra tekrar development/dev branchlerine merge olur. Test ekibi development/dev branch üzerinden alınan deployu test eder ve geliştirmeler başarılı şekilde gerçekleştiğinde yapılan geliştirmeler özelinde canlı çıkışı için hazır duruma geçmiş oluruz.
 
 Bu noktada canlı çıkışını gerçekleştirmek için release brnachi kullanırız ve bu branchi master/main branch üzerinden türetiriz. Daha sonra development/dev branch üzerindeki güncel gelitirmelerimizi de bu release brache merge ederiz. Yani canlıdaki versiyon ile bizim canlıdaki versiyonun üzerine yaptığımız geliştirmeleri release branch üzerinde buluşturmuş oluruz. Canlıya çıkı deployunu da bu branch üzerinden gerçekleştiririz. Daha sonra master/main branche buradaki release branchini merge edip canlıdaki versiyon ile master/main branch üzerindeki kod eşitliğini sağlamış oluruz. Ayrıca canlı çıkışını sağladığımız noktada da master/main branch üzerindeki son commite versiyon tagi atmalıyız. Bu sayede canlıdaki son versiyonu repo üzerinde etiketlemiş oluruz. Canlıdaki versiyondan geriye dönmemiz gereken bir durum olursa bu versiyon taglarinin verildiği commitlerden birine dönüş yapabiliriz.
+
+Bir yazılım projesindeki branching deneyimlerimi sizlere aktarmaya çalıştdım. Umarım faydalı olmuştur. İçerikte aklınıza takılan bir soru olursa bana sosyal medya hesaplarım üzerinden erişebilirsiniz.
