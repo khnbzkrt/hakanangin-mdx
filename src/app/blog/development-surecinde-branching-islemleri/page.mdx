@@ -1,0 +1,73 @@
+# Development Sürecinde Branching İşlemleri
+
+![Development Sürecinde Branching İşlemleri!](/blog/branching.png "Development Sürecinde Branching İşlemleri")
+
+Merhaba, bu yazı içeriğinde size aktarmak istediğim konu, geliştirme sürecinde kullandığımız git repolarındaki branch sistemi. Pratikte branchler oluştururken hangi mantıkla nasıl bir yöntem izlediğimden bahsetmek istiyorum.
+
+## Git Nedir?
+
+Git, Linus Torvalds tarafından geliştirilen, dağıtık bir versiyon kontrol sistemidir. Temel görevi, bir yazılım projesinin farklı versiyonları arasındaki değişiklikleri takip etmek, yönetmek ve kaydetmektir. Git, özellikle çok sayıda geliştiricinin aynı projede çalıştığı büyük ve karmaşık yazılım projeleri için oldukça etkili bir araçtır.
+
+## Versiyon Kontrol Sistemlerinin Önemi
+
+Yazılım geliştirme sürecinde, bir projenin farklı versiyonları arasındaki geçişlerin düzenli ve kontrollü olması önemlidir. Versiyon kontrol sistemleri, projenin geçmişini ve gelecekteki değişiklikleri kaydederek, ekiplerin daha iyi bir işbirliği yapmasına ve hataları hızla çözmelerine olanak tanır.
+
+## Git'in Temel Kavramları
+
+**Commit (Taahhüt)**: Projedeki değişikliklerin birer paketi olarak düşünülebilir. Her commit, bir değişikliği temsil eder ve projenin geçmişine bir "an" olarak eklenir.
+
+**Branch (Dal)**: Farklı geliştirme süreçlerini veya özellikleri izlemek için kullanılır. Farklı dallar, ekiplerin aynı anda farklı özellikler üzerinde çalışmalarına izin verir.
+
+**Merge (Birleştirme)**: Farklı dallardaki değişiklikleri birleştirerek, projenin ana dalına entegre etmek için kullanılır.
+
+## Neden Git Kullanmalıyız?
+
+**İşbirliği Kolaylığı**: Birden fazla geliştiricinin aynı anda aynı projede çalışabilmesini sağlar.
+
+**Gelişmiş Geri Alma Yetenekleri**: Hataların geri alınması veya geçmişe dönük değişikliklerin yapılması kolaydır.
+
+**Dağıtık Yapısı**: Merkezi bir sunucuya bağımlı olmadan, her geliştiricinin kendi lokal versiyonunu kontrol etmesine izin verir.
+
+**Hızlı ve Verimli**: Projedeki sadece değişiklikleri değil, tüm geçmişi saklamak yerine verimli bir şekilde çalışır.
+
+Gelelim şimdi branching işlemlerini ben nasıl uyguluyorum bunları aktarayım. Sıralamayı development aşamasıdan başlayarak anlatmaya çalışacağım ancak öncelikle master/main branche değinmek istiyorum.
+
+## Master branch veya Main branch
+
+Bu branchler genelde canlıda kullanılan sürümü temsil eder. Projemizi ilk oluşturduğumuzda da bu branchler ana branch vazifesi görür.Bu branchlere asla ama asla direkt olarak commit gönderilmez. Eğer canlıda bir sorun olursa bu branchler üzerinden yeni bir branch oluşturarak (hotfix, bu konuya değineceğiz) geliştirmeler yapılır.
+
+## Development veya Dev branh
+
+Bu branchler master/main branchlerinden türetilir ve geliştirme sürecindeki sürümü ifade eder. Bizler yazılımcı olarak geliştirmeler yaparız ve yaptığımız geliştirmeler code review sürecinden geçtikten sonra bu branchlere merge olur. QA-Test ekibi de bu branch üzerinden ilgili ortamlara alınan deploylar üzerinden test işlemini gerçekleştirir.
+
+## Feature branch
+
+Eğer sorumlu olduğumuz ve geliştirmemiz gereken iş eğer mevcut yapıda yeni bir özellik olarak nitelendiriliyorsa bu geliştirme feature branch ile yapılmalıdır. Feature branch ise development/dev branchinden üretilmelidir. Ben bu branchi oluştururken de genelde aşağıdaki gibi bir standart kullanıyorum. Buradaki `ABC-123` değeri ise ticketın aldığı prefix ve ticket numarasını temsil etmektedir.
+
+development/dev branch üzerindeyken;
+
+```git
+git checkout -b feature/ABC-123
+```
+
+komutu çalıştırılarak `feature/ABC-123` branchini oluşturmuş olduk. Bu aşamada geliştirmelerimizi tamamlayıp repoya göndereceğiz.
+
+## Bugfix branch
+
+Ben bu branch genelde 2 şekilde kullanılır.
+
+1. Canlıda çalışmayan bir geliştirme tespit edilmiştir ancak düzeltilmesi çok acil olmayan bir sorundur. Örneğin login butonunun boyutu 250px X 40px olması gerekirken 250px x 50px olarak geliştirme yapılmış ve bu durum test ekibinin de gözünden kaçarak canlıya kadar çıkmıştır. Bunun gibi normalde kararlaştırılan şekilde çalışmayan ancak sistemin akışını bozmayan hatalar bugfix olarak gündeme alınarak düzeltilir.
+
+2. Feature branch ile geliştirmelerimizi yaptık ve review sürecini başlattık. Yazdığımız kod review sürecinden de başarılı şekilde geçti ve development/dev branche merge edilerek test ortamına deploy edildi. Ancak test ekibi yaptığınız geliştirmede bir sorun tespit etti ve bu noktada tekrar geliştirme yapmanız gerekiyor. Bu durumda ben mevcuttaki feature branchini kullanmak yerine development/dev branchinden yeni bir `bugfix/ABC-123-QAFix-count` branchi oluşturup geliştirmelerime devam ediyorum ve review sürecine bu branchi sokmuş oluyorum. Buradaki count değerini ise her testten dönen durum için 1,2,3.. şeklinde artırıyorum. Yani ben `bugfix/ABC-123-QAFix-1` isimli bir branch oluşturdum ve yaptığım geliştirme tekrar testten döndü o zaman da `bugfix/ABC-123-QAFix-`2 adında farklı bir branch oluşturuyorum.
+
+## Hotfix branch
+
+Bu branch canlıda acil olarak çözülmesi gereken sorunların geliştirilmesi için kullanılır ve development/dev branchinin aksine direkt olarak canlıdaki sürümü temsil eden master/main branch üzerinden türetilir. Bu aşamada yaptığımız geliştirmeler de yine code review ve test süreçlerine girmelidir.
+
+## Release branch
+
+Master/main branchi uygulamamızın canlıdaki versiyon sürümü olarak nitelendirmiştik ancak bu noktada canlı versiyon çıkışlarımızı master/main branch üzerinden yapmak yerine release branch oluşturup bu branch üzerinden canlı çıkışı sağlarız. Bu branch ise şu şekilde oluşur;
+
+Development/dev branch üzerinden feature yada bugfix branchler oluşturup geliştirmelerimiz yaparız. Bu branchler code review sürecinden geçtikten sonra tekrar development/dev branchlerine merge olur. Test ekibi development/dev branch üzerinden alınan deployu test eder ve geliştirmeler başarılı şekilde gerçekleştiğinde yapılan geliştirmeler özelinde canlı çıkışı için hazır duruma geçmiş oluruz.
+
+Bu noktada canlı çıkışını gerçekleştirmek için release brnachi kullanırız ve bu branchi master/main branch üzerinden türetiriz. Daha sonra development/dev branch üzerindeki güncel gelitirmelerimizi de bu release brache merge ederiz. Yani canlıdaki versiyon ile bizim canlıdaki versiyonun üzerine yaptığımız geliştirmeleri release branch üzerinde buluşturmuş oluruz. Canlıya çıkı deployunu da bu branch üzerinden gerçekleştiririz. Daha sonra master/main branche buradaki release branchini merge edip canlıdaki versiyon ile master/main branch üzerindeki kod eşitliğini sağlamış oluruz. Ayrıca canlı çıkışını sağladığımız noktada da master/main branch üzerindeki son commite versiyon tagi atmalıyız. Bu sayede canlıdaki son versiyonu repo üzerinde etiketlemiş oluruz. Canlıdaki versiyondan geriye dönmemiz gereken bir durum olursa bu versiyon taglarinin verildiği commitlerden birine dönüş yapabiliriz.
