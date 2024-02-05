@@ -11,7 +11,7 @@ const AppLayout: FC<AppLayoutProps> = ({ children }) => {
     return (
         <div className="container max-w-4xl mx-auto min-h-screen flex flex-col">
             <Header />
-            <main className="flex-grow">{children}</main>
+            <main className="flex-grow p-4 md:px-0">{children}</main>
             <Footer />
         </div>
     );

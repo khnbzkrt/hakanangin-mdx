@@ -4,7 +4,7 @@ import { FaGithub, FaLinkedin } from "react-icons/fa";
 
 const SocialLinks = () => {
     return (
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-2 md:gap-4">
             <Link href={"https://www.linkedin.com/in/hakan-angin/"} target="_blank">
                 <FaLinkedin size={22} />
             </Link>

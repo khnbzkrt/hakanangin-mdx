@@ -12,7 +12,7 @@ type BlogCardProps = {
 const BlogCard: FC<BlogCardProps> = ({ src, title, content, link }) => {
     return (
         <Link href={link}>
-            <div className="grid grid-rows-[1fr] md:grid-cols-[200px,1fr] min-h-[200px] shadow-md rounded-2xl p-8 gap-8">
+            <div className="grid grid-rows-[1fr] md:grid-cols-[200px,1fr] min-h-[200px] shadow-md rounded-2xl p-6 gap-8">
                 <div className="relative min-h-[300px] md:min-h-0">
                     <Image src={src} fill loading="lazy" alt={title} className="object-center object-contain" />
                 </div>

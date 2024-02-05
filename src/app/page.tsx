@@ -21,7 +21,7 @@ const blogData = [
 
 export default function Home() {
     return (
-        <article className="grid grid-cols-1 gap-4">
+        <article className="grid grid-cols-1 gap-8">
             {blogData.map((blog) => (
                 <BlogCard key={blog.title} link={blog.link} src={blog.src} title={blog.title} content={blog.content} />
             ))}
