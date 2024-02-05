@@ -8,8 +8,6 @@ export const metadata: Metadata = {
   title: "Hakan Angın Blog Sitesi",
   description:
     "Hakan Angın kişisel blog sitesi. Blog içeriğinde yazılım hayatımdaki tecrübelerimi paylaşıyorum.",
-  name: "google-adsense-account",
-  content: "ca-pub-7940059310086042",
 };
 
 export default function RootLayout({
