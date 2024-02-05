@@ -13,4 +13,9 @@
 a{
     text-decoration: none;
     color: inherit;
+    @apply leading-10 hover:text-purple-900 text-lg font-medium
+}
+
+li{
+    list-style: decimal;
 }

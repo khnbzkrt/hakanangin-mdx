@@ -32,44 +32,58 @@ Yazılım geliştirme sürecinde, bir projenin farklı versiyonları arasındaki
 
 Gelelim şimdi branching işlemlerini ben nasıl uyguluyorum bunları aktarayım. Sıralamayı development aşamasıdan başlayarak anlatmaya çalışacağım ancak öncelikle master/main branche değinmek istiyorum.
 
-## Master branch veya Main branch
+## Master branch
 
-Bu branchler genelde canlıda kullanılan sürümü temsil eder. Projemizi ilk oluşturduğumuzda da bu branchler ana branch vazifesi görür.Bu branchlere asla ama asla direkt olarak commit gönderilmez. Eğer canlıda bir sorun olursa bu branchler üzerinden yeni bir branch oluşturarak (hotfix, bu konuya değineceğiz) geliştirmeler yapılır.
+Bu branch genelde canlıda kullanılan sürümü temsil eder. Projemizi ilk oluşturduğumuzda da ana branch vazifesi görür. Commitlerimi direkt olarak bu branche göndermemeliyiz. Dediğim gibi bu branch uygulamamızın canlıdaki çalışan versiyonunu temsil eder. Peki bu branch içerisindeki kodlar nasıl güncelleniyor?
 
-## Development veya Dev branh
+Diyelim ki canlıda bir bug tespit edildi ve bu bug uygulamanın akışını bozacak derecede ciddi ve öncelikli çözümlenmesi gereken bir bug olsun. Bu durumda ilgili bugı çözümlemek için master branch üzerinden hotfix isimli yeni bir branch türetiriz. Bug ile ilgili geliştirmeleri bu hotfix branch üzerinde tamamlarız ve yaptığımız geliştirmelerin tekrar canlı ortama deploy olması için hotfix -> master merge işlemini gerçekleştirecek bir PR (Pull Request) oluştururuz. Code review süreci tamamlandıktan sonra PR onaylanır ve öncelikte test sonrasında ise canlı ortama çıkış sağlanır.
 
-Bu branchler master/main branchlerinden türetilir ve geliştirme sürecindeki sürümü ifade eder. Bizler yazılımcı olarak geliştirmeler yaparız ve yaptığımız geliştirmeler code review sürecinden geçtikten sonra bu branchlere merge olur. QA-Test ekibi de bu branch üzerinden ilgili ortamlara alınan deploylar üzerinden test işlemini gerçekleştirir.
+## Development branch
+
+ Development branch ise master branch üzerinden türetilir ve master branchte olduğu gibi burayada direkt olarak commit gönderilmemelidir. Yapacağımız yeni feature geliştirmeleri yada hata düzeltmelerine ait branchler buradaki development branch üzerinden oluşturulur. Örneğin kullanıcı detay ekranına profil resmi eklenmesiyle ilgili bir isterimiz olsun ve bu iş için açılan ticketın numarası ise PRJ-54 olsun. Öncelikte development branche geçip `git pull` komutu ile development branchinin son halini repodan çekmeliyiz. Bu işlemi gerçekleştirdikten sonra aşağıdaki komut ile development branchinden profil resmine ait geliştirmeleri yapacağımız yeni bir branch oluşturmalıyız.
+
+ `git checkout -b feature/PRJ-54`
+
+ artık yeni feature branchimiz oluştu ve profil resmi eklenmesine ilişkin geliştirmeleri burada gerçekleştirebiliriz. Geliştirmeler tamamlandıktan sonra değişikliklerimizi `git add .`  ve `git commit -m "feature/PRJ-54 Profile image added to personal information page"` şeklinde commitleyerek `git push` komutu yardımıyla uzak repoya gönderebiliriz. Bu işlemleri tamamladıktan sonra code review sürecini başlatmak için uzak repoda bir PR (Pull Request) oluşturmalıyız. Ekipteki herkes bu review sürecine katılabilir ve sonrasında PR Ekip lideri tarafından onaylanır ve development branchine merge edilmiş olur. 
+
+ Bu aşamdan sonra ise geriye development branchi QA ekibinin test edebilmesi için ilgili ortamlara (QA,Test) deploy edilmesi gerekmektedir. 
 
 ## Feature branch
 
-Eğer sorumlu olduğumuz ve geliştirmemiz gereken iş eğer mevcut yapıda yeni bir özellik olarak nitelendiriliyorsa bu geliştirme feature branch ile yapılmalıdır. Feature branch ise development/dev branchinden üretilmelidir. Ben bu branchi oluştururken de genelde aşağıdaki gibi bir standart kullanıyorum. Buradaki `ABC-123` değeri ise ticketın aldığı prefix ve ticket numarasını temsil etmektedir.
+Eğer sorumlu olduğumuz ve geliştirmemiz gereken iş eğer mevcut yapıda yeni bir özellik olarak nitelendiriliyorsa bu geliştirme feature branch ile yapılmalıdır. Feature branch ise development branchinden üretilmelidir. Ben bu branchi oluştururken de genelde aşağıdaki gibi bir standart kullanıyorum. Buradaki `ABC-123` değeri ise ticketın aldığı prefix ve ticket numarasını temsil etmektedir.
 
-development/dev branch üzerindeyken;
+development branch üzerindeyken;
 
 ```git
+git pull
+
 git checkout -b feature/ABC-123
 ```
 
-komutu çalıştırılarak `feature/ABC-123` branchini oluşturmuş olduk. Bu aşamada geliştirmelerimizi tamamlayıp repoya göndereceğiz.
+komutu çalıştırılarak `feature/ABC-123` branchini oluşturmuş olduk. Bu aşamada geliştirmelerimizi tamamlayıp repoya gönderebiliriz.
 
 ## Bugfix branch
 
 Bu branch genelde 2 şekilde kullanılır.
 
-1. Canlıda çalışmayan bir geliştirme tespit edilmiştir ancak düzeltilmesi çok acil olmayan bir sorundur. Örneğin login butonunun boyutu 250px X 40px olması gerekirken 250px x 50px olarak geliştirme yapılmış ve bu durum test ekibinin de gözünden kaçarak canlıya kadar çıkmıştır. Bunun gibi normalde kararlaştırılan şekilde çalışmayan ancak sistemin akışını bozmayan hatalar bugfix olarak gündeme alınarak düzeltilir.
+1. Canlıda çalışmayan bir geliştirme tespit edilmiştir ancak düzeltilmesi çok acil olmayan bir sorundur. Örneğin login butonunun boyutu `250px X 40px` olması gerekirken `250px x 50px` olarak geliştirme yapılmıştır. Bunun gibi sistemin olağan akışını bozmayan hataları düzeltirken bugfix branch oluşturularak geliştirmeler yapılmalıdır.
 
-2. Feature branch ile geliştirmelerimizi yaptık ve review sürecini başlattık. Yazdığımız kod review sürecinden de başarılı şekilde geçti ve development/dev branche merge edilerek test ortamına deploy edildi. Ancak test ekibi yaptığınız geliştirmede bir sorun tespit etti ve bu noktada tekrar geliştirme yapmanız gerekiyor. Bu durumda ben mevcuttaki feature branchini kullanmak yerine development/dev branchinden yeni bir `bugfix/ABC-123-QAFix-count` branchi oluşturup geliştirmelerime devam ediyorum ve review sürecine bu branchi sokmuş oluyorum. Buradaki count değerini ise her testten dönen durum için 1,2,3.. şeklinde artırıyorum. Yani ben `bugfix/ABC-123-QAFix-1` isimli bir branch oluşturdum ve yaptığım geliştirme tekrar testten döndü o zaman da `bugfix/ABC-123-QAFix-`2 adında farklı bir branch oluşturuyorum.
+2. Diğer bir kullanım senaryosu ise feature branch ile geliştirmelerimizi yaptık ve PR oluşturup code review sürecinden başarılı bir şekilde geçtik. Code review sürecinde PR onaylandı ve yaptığımız geliştirme development branche merge olarak test ortamına deployu gerçekleşti. Fakat test ekibi yaptığınız geliştirmeleri test ederken isterin doğru şekilde karşılanmadığını tespit edip, yaptığınız geliştirmede düzeltilmesi gereken eksikler/hatalar tespit etti ve ticketınızı tekrar geri gönderdi. Bu durumda bu eksiklerin/hataların giderilmesi için ilk geliştirme sırasında kullandığınız feature branchi kullanmak yerine, development branch üzerinden yeni bir `bugfix/ABC-123-QAFix-count` branchi oluşturup geliştirmelerinize devam edebilirsiniz ve review sürecine artık `bugfix/ABC-123-QAFix-count` branchini dahil etmiş olursunuz. Buradaki count değerini ise her testten dönen durum için 1,2,3.. şeklinde artırabilirsiniz. Yani ben `bugfix/ABC-123-QAFix-1` isimli bir branch oluşturdum ve yaptığım geliştirme tekrar testten döndü o zaman da `bugfix/ABC-123-QAFix-2` adında farklı bir branch oluşturuyorum.
 
 ## Hotfix branch
 
-Bu branch canlıda acil olarak çözülmesi gereken sorunların geliştirilmesi için kullanılır ve development/dev branchinin aksine direkt olarak canlıdaki sürümü temsil eden master/main branch üzerinden türetilir. Bu aşamada yaptığımız geliştirmeler de yine code review ve test süreçlerine girmelidir.
+Bu branch canlıda acil olarak düzeltilmesi gereken sorunların geliştirilmesi için kullanılır ve burada yapacağımız geliştirmeler için kullanılacak hotfix branchini master branch üzerinden türetiriz. Diğer tüm geliştirmeler gibi bu geliştirme de yine code review ve test süreçlerinden geçmelidir. Ayrıca burada yaptığımız geliştirmelerin PR'ını development değil master branche merge olması için oluştururuz.
 
 ## Release branch
 
-Master/main branchi uygulamamızın canlıdaki versiyon sürümü olarak nitelendirmiştik ancak bu noktada canlı versiyon çıkışlarımızı master/main branch üzerinden yapmak yerine release branch oluşturup bu branch üzerinden canlı çıkışı sağlarız. Bu branch ise şu şekilde oluşur;
+Master branchi uygulamamızın canlıdaki versiyon sürümü olarak nitelendirmiştik ancak bu noktada canlı versiyon çıkışlarımızı master branch üzerinden yapmak yerine release branchi oluşturup bu branch üzerinden canlı çıkışı sağlarız. 
 
-Development/dev branch üzerinden feature yada bugfix branchler oluşturup geliştirmelerimiz yaparız. Bu branchler code review sürecinden geçtikten sonra tekrar development/dev branchlerine merge olur. Test ekibi development/dev branch üzerinden alınan deployu test eder ve geliştirmeler başarılı şekilde gerçekleştiğinde yapılan geliştirmeler özelinde canlı çıkışı için hazır duruma geçmiş oluruz.
+![Release Branch!](/blog/release.webp "Release Branch")
 
-Bu noktada canlı çıkışını gerçekleştirmek için release brnachi kullanırız ve bu branchi master/main branch üzerinden türetiriz. Daha sonra development/dev branch üzerindeki güncel gelitirmelerimizi de bu release brache merge ederiz. Yani canlıdaki versiyon ile bizim canlıdaki versiyonun üzerine yaptığımız geliştirmeleri release branch üzerinde buluşturmuş oluruz. Canlıya çıkı deployunu da bu branch üzerinden gerçekleştiririz. Daha sonra master/main branche buradaki release branchini merge edip canlıdaki versiyon ile master/main branch üzerindeki kod eşitliğini sağlamış oluruz. Ayrıca canlı çıkışını sağladığımız noktada da master/main branch üzerindeki son commite versiyon tagi atmalıyız. Bu sayede canlıdaki son versiyonu repo üzerinde etiketlemiş oluruz. Canlıdaki versiyondan geriye dönmemiz gereken bir durum olursa bu versiyon taglarinin verildiği commitlerden birine dönüş yapabiliriz.
+Master branch bizim canlıdaki çalışan versiyonumuzdu. Burada yaptığımız işlem ise, canlıdaki versiyonun üzerine development branchte bulunan yeni yaptığımız geliştirmeleri eklemek. Bu işlemi gerçekleştirmek için development branchini direkt olarak master branche merge etmek yerine master branchten türetilmiş bir release branch oluşturup developmenttaki değişikliklerimizi de bu release branche merge ediyoruz. Aslında canlıdaki versiyon ve yaptığımız geliştirmeleri release branch üzerinde birleştirmiş oluyoruz ve canlı deployunu bu branch üzerinden çıkıyoruz. 
 
-Bir yazılım projesindeki branching deneyimlerimi sizlere aktarmaya çalıştdım. Umarım faydalı olmuştur. İçerikte aklınıza takılan bir soru olursa bana sosyal medya hesaplarım üzerinden erişebilirsiniz.
+Release branch üzerinden canlı çıkışını gerçekleştirdik. Peki biz ne demiştik? Master branch bizim canlıdaki versiyonumuzu temsil ediyor demiştik. Bu aşamada bu eşitliği sağlamak için release branchini master branchine merge ediyoruz ve canlı ile versiyon eşitliğini sağlamış oluyor. Bu eşitlik sağlandıktan sonra da master branch üzerindeki son commite versiyon tagi atabiliriz. Böyleye master branch üzerinde çıkmış olduğumuz her versiyonu takip edebilirsiniz. İsterseniz bir önceki versiyona dönme işlemini de buradan gerçekleştirebilirsiniz. 
+
+Bu noktada kafanız karışmış olabilir ancak release branchi master ve development branchler arasındaki köprü gibi düşünebilirsiniz. 
+
+Branching konusundaki tecrübelerimi size aktarmaya çalıştım umarım faydalı olmuştur. Eğer aklınıza takılan yada yanlış ifade ettiğimi düşündüğünüz bir nokta olursa lütfen benimle sosyal medya hesaplarım üzerinden iletişime geçiniz.
