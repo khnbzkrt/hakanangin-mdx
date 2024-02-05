@@ -1,21 +1,22 @@
 @tailwind components;
 @tailwind utilities;
 
-
-#mdx-layout img{
-    @apply w-2/3 object-cover object-center flex mx-auto
+#mdxLayout img {
+    @apply w-full md:w-2/3 object-cover object-center flex mx-auto;
 }
 
-#mdx-layout p{
-    @apply leading-8 text-xl
+#mdxLayout p {
+    @apply leading-8 text-xl;
 }
 
-a{
-    text-decoration: none;
-    color: inherit;
-    @apply leading-10 hover:text-purple-900 text-lg font-medium
+a {
+    @apply hover:text-blue-800 active:text-inherit visited:text-inherit flex items-center no-underline;
 }
 
-li{
+#mdxLayout a {
+    @apply leading-10 hover:text-blue-800 text-lg font-medium no-underline text-inherit;
+}
+
+#mdxLayout li {
     list-style: decimal;
 }
