@@ -1,5 +1,5 @@
 import AppLayout from "@/components/app-layout";
-import { GoogleAnalytics } from "@next/third-parties/google";
+import { GoogleAnalytics, GoogleTagManager } from "@next/third-parties/google";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 
@@ -22,6 +22,7 @@ export default function RootLayout({
         <AppLayout>{children}</AppLayout>
       </body>
       <GoogleAnalytics gaId="GTM-593634GH" />
+      <GoogleTagManager gtmId="G-QV271QJ8TW" />
     </html>
   );
 }
