@@ -18,7 +18,7 @@ body {
 }
 
 a {
-    @apply hover:text-blue-800 active:text-inherit visited:text-inherit flex items-center no-underline;
+    @apply text-neutral-800 hover:text-purple-500 active:text-inherit visited:text-inherit flex items-center no-underline;
 }
 
 #mdxLayout a {
